@@ -56,11 +56,11 @@ r[:cocoa_class] = doc.at('a')[:title]
 
 r[:superclasses] = (x = tr_with_text(doc, 'Inherits from')) && x.search('td/div/a').map(&:inner_text)
 
-r[:protocols] = tr_with_text(doc, 'Conforms to').search('td/div/span/a').map(&:inner_text)
+r[:protocols] = (x = tr_with_text(doc, 'Conforms to')) && x.search('td/div/span/a').map(&:inner_text)
 
 r[:framework] = tr_with_text(doc, 'Framework').at('td/div').inner_text.strip
 
-r[:availability] = tr_with_text(doc, 'Availability').at('td/div/div/text()').text.strip
+r[:availability] = (x = tr_with_text(doc, 'Availability').at('td/div/div/text()')) && x.text.strip
 
 x = tr_with_text(doc, 'Companion guides')
 companion_guides = x && x.search("td/div/span/a").map {|a| a.inner_text.strip}
@@ -72,12 +72,15 @@ div = doc.at('//div[@id="Overview_section"]')
 r[:overview] = fragment_text(div).strip
 
 div = doc.at("#Tasks_section")
-headers = div.search("h3")
-tasks = headers.map do |h|
-  title = h.inner_text
-  ul = h.xpath("following-sibling::ul")[0]
-  mytasks = ul.search("li").map {|a| ascii(a.at("a").inner_text)}
-  {title: title, tasks: mytasks}
+tasks = []
+if div
+  headers = div.search("h3")
+  tasks = headers.map do |h|
+    title = h.inner_text
+    ul = h.xpath("following-sibling::ul")[0]
+    mytasks = ul.search("li").map {|a| ascii(a.at("a").inner_text)}
+    {title: title, tasks: mytasks}
+  end
 end
 
 taskmap = {}
@@ -111,7 +114,7 @@ r[:methods] = method_divs.map {|n|
     nil
   end
   abstract = (x = n.at("p[@class=abstract]")) && x.inner_text
-  availability = n.at("div[@class='api availability']/ul/li").inner_text
+  availability = (x = n.at("div[@class='api availability']/ul/li")) && x.inner_text
   seealso = if (x = n.at("div[@class$=seeAlso]"))
     x.search("li").map(&:inner_text).map {|z| ascii(z).strip}
   end
