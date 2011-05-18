@@ -16,7 +16,7 @@ end
 
 class String
   def strip_leading_whitespace
-    gsub(/^\s+(?=\S)/, '')
+    gsub(/^[t ]+(?=\S)/, '')
   end
 end
 
