@@ -58,7 +58,7 @@ r[:superclasses] = (x = tr_with_text(doc, 'Inherits from')) && x.search('td/div/
 
 r[:protocols] = (x = tr_with_text(doc, 'Conforms to')) && x.search('td/div/span/a').map(&:inner_text)
 
-r[:framework] = tr_with_text(doc, 'Framework').at('td/div').inner_text.strip
+r[:framework] = (x = tr_with_text(doc, 'Framework')) && x.at('td/div').inner_text.strip
 
 r[:availability] = (x = tr_with_text(doc, 'Availability')) && x.at('td/div/div/text()').text.strip
 
