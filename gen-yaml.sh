@@ -7,10 +7,8 @@ do
   # echo $path
   pre_outfile=${path%/Reference/Reference.html}
   outfile=data/${pre_outfile##/*/}.yml
-  if [[ -e $outfile ]]
+  if [[ ! -e $outfile ]]
   then
-    echo Skipping $outfile, exists.
-  else
     echo Making $outfile
     ruby lib/adc-doc-parser.rb < $path > $outfile
   fi  

@@ -14,13 +14,19 @@ def mark_code(html)
   html.gsub(/<\/?code>/, "|")
 end
 
+class String
+  def strip_leading_whitespace
+    gsub(/^\s+(?=\S)/, '')
+  end
+end
+
 def lynx(s)
   script = "lynx -stdin -dump -nonumbers"
   IO.popen(script, "r+") do |pipe|
     pipe.puts s
     pipe.close_write
     pipe.read
-  end.gsub(/^file:\/\/.*$/, '').gsub(/^\s+(?=\S)/, '')
+  end.gsub(/^file:\/\/.*$/, '').strip_leading_whitespace
 end
 
 def fragment_text(node)
@@ -68,8 +74,13 @@ r[:companion_guides] = companion_guides
 
 r[:related_sample_code] = (x = tr_with_text(doc, 'Related sample code')) && x.search('td/div/div/span').map {|a| a.inner_text.strip}
 
-div = doc.at('//div[@id="Overview_section"]')
-r[:overview] = fragment_text(div).strip
+div = doc.at('//div[@id="Overview_section"]') 
+
+if div.nil?
+  div = doc.at("//h2[text()='Overview']").xpath('following-sibling::p')[0]
+end
+
+r[:overview] = fragment_text(div).strip.strip_leading_whitespace
 
 div = doc.at("#Tasks_section")
 tasks = []
