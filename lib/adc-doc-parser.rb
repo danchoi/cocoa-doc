@@ -16,7 +16,7 @@ end
 
 class String
   def strip_leading_whitespace
-    gsub(/^[t ]+(?=\S)/, '')
+    gsub(/^[\t ]+(?=\S)/, '')
   end
 end
 
@@ -80,7 +80,7 @@ if div.nil?
   div = doc.at("//h2[text()='Overview']").xpath('following-sibling::p')[0]
 end
 
-r[:overview] = fragment_text(div).strip.strip_leading_whitespace
+r[:overview] = fragment_text(div).strip#.strip_leading_whitespace
 
 div = doc.at("#Tasks_section")
 tasks = []
@@ -107,12 +107,26 @@ end
 
 class_methods = doc.xpath("//div[@class='api classMethod']")
 names = class_methods.map {|div| div.at("h3").inner_text}
-method_divs = doc.xpath("//div[@class='api classMethod']") + doc.xpath("//div[@class='api instanceMethod']")
+
+
+
+method_divs = doc.xpath("//div[@class='api classMethod']") + doc.xpath("//div[@class='api instanceMethod']") + doc.xpath("//div[@class='api propertyObjC']")
 
 r[:methods] = method_divs.map {|n| 
-  type = n[:class] =~ /instanceMethod/ ? '- ' : '+ '
-  methodname = type + n.at('h3[@class^=jump]').inner_text
+  type = n[:class].split(' ')[-1] 
+  typeSymbol = case type
+               when /instance/
+                 '- '
+               when /class/
+                 '+ '
+               else
+                 ''
+               end
+                 
+  methodname = typeSymbol + n.at('h3[@class^=jump]').inner_text
+
   declaration = n.at("div[@class='declaration']").inner_text.strip
+
   parameters = if (x = n.at("div[@class='api parameters']"))
     x.search("dl/dt").map do |dt|
       name = dt.inner_text
@@ -131,6 +145,7 @@ r[:methods] = method_divs.map {|n|
   end
 
   {name: methodname,
+  type: type,
    declaration: declaration,
    parameters: parameters,
    abstract: abstract,

@@ -3,3 +3,7 @@ Need to wrap adc-doc-parser.rb in a shell script that cleans up the html
 
  1011  ruby adc-doc-parser.rb < Contents//Resources/Documents/documentation/UIKit/Reference/UITableView_Class/Reference/Reference.html   | less
  1012  history 2 >> NOTES
+
+TODO properties section
+
+
