@@ -60,7 +60,7 @@ r[:protocols] = (x = tr_with_text(doc, 'Conforms to')) && x.search('td/div/span/
 
 r[:framework] = tr_with_text(doc, 'Framework').at('td/div').inner_text.strip
 
-r[:availability] = (x = tr_with_text(doc, 'Availability').at('td/div/div/text()')) && x.text.strip
+r[:availability] = (x = tr_with_text(doc, 'Availability')) && x.at('td/div/div/text()').text.strip
 
 x = tr_with_text(doc, 'Companion guides')
 companion_guides = x && x.search("td/div/span/a").map {|a| a.inner_text.strip}
