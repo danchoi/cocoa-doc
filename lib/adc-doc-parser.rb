@@ -54,7 +54,7 @@ doc = Nokogiri::HTML.parse html
 r[:cocoa_class] = doc.at('a')[:title]
 
 
-r[:superclasses] = tr_with_text(doc, 'Inherits from').search('td/div/a').map(&:inner_text)
+r[:superclasses] = (x = tr_with_text(doc, 'Inherits from')) && x.search('td/div/a').map(&:inner_text)
 
 r[:protocols] = tr_with_text(doc, 'Conforms to').search('td/div/span/a').map(&:inner_text)
 
