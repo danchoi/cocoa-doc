@@ -5,7 +5,7 @@ require 'iconv'
 # STDIN input should a Reference.html.
 
 require 'nokogiri'
-require 'base_parser'
+require 'common_methods'
 require 'method_parser'
 
 html = STDIN.read
