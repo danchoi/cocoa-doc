@@ -72,8 +72,6 @@ def parse_function(n, taskmap)
   elems = [n]
   
   m = n.next_element
-  puts name
-  puts m.name
   begin
     while !m.nil? && FUNCTION_FIELDS.detect {|f| m[:class] =~ /#{f}/}
       puts m[:class]
@@ -84,14 +82,13 @@ def parse_function(n, taskmap)
     puts n.inner_html
     raise
   end
-  puts elems.map(&:name).inspect
 
   # don't do seealso because the following-sibling xpath is unreliable, b/c no containing div boundary
   { name: name,
     declaration: elems.detect {|x| x.name == 'pre'}.inner_text.strip,
     abstract: (y = elems.detect {|x| x[:class] == 'api discussion'}) && y.inner_text.strip.strip_leading_whitespace,
     taskgroup: taskmap[name],
-    availability: (y = elems.detect {|x| x[:class] == 'api availability'}) && y.inner_text.strip 
+    availability: (y = elems.detect {|x| x[:class] == 'api availability'}) && y.at("li").inner_text.strip 
   }
 end
 
