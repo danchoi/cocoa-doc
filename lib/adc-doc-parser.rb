@@ -74,7 +74,6 @@ def parse_function(n, taskmap)
   m = n.next_element
   begin
     while !m.nil? && FUNCTION_FIELDS.detect {|f| m[:class] =~ /#{f}/}
-      puts m[:class]
       elems << m
       m = m.next_element
     end 
@@ -83,13 +82,9 @@ def parse_function(n, taskmap)
     raise
   end
 
-  # don't do seealso because the following-sibling xpath is unreliable, b/c no containing div boundary
-  { name: name,
-    declaration: elems.detect {|x| x.name == 'pre'}.inner_text.strip,
-    abstract: (y = elems.detect {|x| x[:class] == 'api discussion'}) && y.inner_text.strip.strip_leading_whitespace,
-    taskgroup: taskmap[name],
-    availability: (y = elems.detect {|x| x[:class] == 'api availability'}) && y.at("li").inner_text.strip 
-  }
+  frag = "<div class='blah function'>#{elems.map {|e| e.to_html}.join("\n")}</div>"
+  new_node = Nokogiri::HTML.parse(frag).at("div")
+  parse_method(new_node, taskmap)
 end
 
 function_divs = doc.xpath("//h3[@class='tight jump function']") 
