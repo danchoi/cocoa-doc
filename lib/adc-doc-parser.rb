@@ -10,10 +10,10 @@ require 'method_parser'
 
 html = STDIN.read
 html = Iconv.conv("US-ASCII//translit//ignore", "UTF-8", html)
+doc = Nokogiri::HTML.parse html
 
 r = {} # result
 
-doc = Nokogiri::HTML.parse html
 r[:cocoa_class] = doc.at('a')[:title]
 
 r[:superclasses] = (x = tr_with_text(doc, 'Inherits from')) && x.search('td/div/a').map(&:inner_text)
