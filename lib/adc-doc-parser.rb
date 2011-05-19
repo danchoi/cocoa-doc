@@ -54,9 +54,44 @@ end
 method_divs = doc.xpath("//div[@class='api classMethod']") + doc.xpath("//div[@class='api instanceMethod']") + doc.xpath("//div[@class='api propertyObjC']")
 r[:methods] = method_divs.map {|n| parse_method(n, taskmap)}
 
-def parse_function(n, task_map)
-  { name: n.inner_text,
-    declaration: n.xpath("following-sibling::pre")[0].inner_text.strip
+
+FUNCTION_FIELDS = %w(
+abstract
+declaration
+parameters
+return_value
+discussion
+availability
+seeAlso
+relatedSampleCode
+declaredIn
+)
+def parse_function(n, taskmap)
+  name = n.inner_text
+    
+  elems = [n]
+  
+  m = n.next_element
+  puts name
+  puts m.name
+  begin
+    while !m.nil? && FUNCTION_FIELDS.detect {|f| m[:class] =~ /#{f}/}
+      puts m[:class]
+      elems << m
+      m = m.next_element
+    end 
+  rescue
+    puts n.inner_html
+    raise
+  end
+  puts elems.map(&:name).inspect
+
+  # don't do seealso because the following-sibling xpath is unreliable, b/c no containing div boundary
+  { name: name,
+    declaration: elems.detect {|x| x.name == 'pre'}.inner_text.strip,
+    abstract: (y = elems.detect {|x| x[:class] == 'api discussion'}) && y.inner_text.strip.strip_leading_whitespace,
+    taskgroup: taskmap[name],
+    availability: (y = elems.detect {|x| x[:class] == 'api availability'}) && y.inner_text.strip 
   }
 end
 

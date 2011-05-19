@@ -27,9 +27,7 @@ def parse_method(n, taskmap)
   end
   abstract = (x = n.at("p[@class=abstract]")) && x.inner_text
   availability = (x = n.at("div[@class='api availability']/ul/li")) && x.inner_text
-  seealso = if (x = n.at("div[@class$=seeAlso]"))
-    x.search("li").map(&:inner_text).map {|z| ascii(z).strip}
-  end
+  seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}
 
   {name: methodname,
   type: type,
