@@ -154,4 +154,6 @@ r[:methods] = method_divs.map {|n|
    seealso: seealso
   }
 }
+
+
 puts r.to_yaml
