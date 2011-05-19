@@ -8,3 +8,10 @@ Functions and Constants should be treated separately?
 
 
 
+
+not all relevant files end with Reference.html
+
+e.g.
+
+Contents/Resources/Documents/documentation/UIKit/Reference/UITextViewDelegate_Protocol/Reference/UITextViewDelegate.html
+
