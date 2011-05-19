@@ -15,3 +15,8 @@ e.g.
 
 Contents/Resources/Documents/documentation/UIKit/Reference/UITextViewDelegate_Protocol/Reference/UITextViewDelegate.html
 
+bin/parse < 4_2/Contents/Resources/Documents/documentation/UIKit/Reference/UIImagePickerController_Class/UIImagePickerController/UIImagePickerController.html
+
+This HTML file parses correctly. It needs to be picked up by the script that 
+generates the list of documentation files to feed into the parser tool.
+

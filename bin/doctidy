@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+require 'nokogiri'
+
+html = STDIN.read
+['article', 'section', 'aside'].each do |tag|
+  html = html.gsub(/<(\/)?#{tag}/, "<!-- #{tag} --><\\1div")
+end
+
+doc = Nokogiri::HTML html
+['meta', 'script'].each do |tag|
+  doc.search(tag).each {|n| n.remove}
+end
+
+html = doc.serialize
+
+result = IO.popen("tidy -wrap 0 -asxhtml -i -raw", "r+") do |pipe|
+  pipe.puts html
+  pipe.close_write
+  pipe.read
+end
+
+puts result
