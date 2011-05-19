@@ -14,14 +14,6 @@ end
 
 def fragment_text(node)
   text = Nokogiri::HTML.parse(mark_code(node.to_s))
-  script = %Q@
-  lynx -stdin -dump |
-sed '/^$/{
-N
-/^\\n$/D
-}
-' | fmt
-@
   script = "lynx -stdin -dump -nonumbers"
   IO.popen(script, "r+") do |pipe|
     pipe.puts text
