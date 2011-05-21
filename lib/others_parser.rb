@@ -26,6 +26,7 @@ class OthersParser
         declaration: (y = fragment.at(".declaration")) && y.inner_text.strip
       }
     }
+    puts "CONSTANT GROUPS"
     puts groups.to_yaml
 
   end
@@ -46,7 +47,7 @@ class OthersParser
     }
   end
 
-  DATATYPE_FIELDS = ['abstract', 'declaration', 'termdef', 'api discussion', 'api availability', 'api declaredIn']
+  DATATYPE_FIELDS = ['abstract', 'declaration', 'termdef', 'tight', 'api discussion', 'api availability', 'api declaredIn']
   def parse_datatypes
     structs = doc.xpath("//h3[@class='tight jump struct']")
     type_defs = doc.xpath("//h3[@class='tight jump typeDef']")
@@ -60,8 +61,8 @@ class OthersParser
   end
 
   def parse_datatype(n)
-    puts '-' * 80
-    puts n
+    data = parse2 n
+    DB[:others].insert data 
   end
 
   def parse_functions
@@ -88,11 +89,11 @@ class OthersParser
     elems = [n] + n.xpath('following-sibling::*').take_while {|m| FUNCTION_FIELDS.detect{|f| /#{f}/ =~ m['class']}}
     frag = "<div class='blah function'>#{elems.map {|e| e.to_html}.join("\n")}</div>"
     new_node = Nokogiri::HTML.parse(frag).at("div")
-    data = parse_function2(new_node)
+    data = parse2(new_node)
     DB[:others].insert data
   end
 
-  def parse_function2(n)
+  def parse2(n)
     functionname = n.at('h3[@class*=jump]').inner_text
     declaration = (x = n.at("*[@class*='declaration']")) && x.inner_text.strip
     discussion = (x = n.at("*[@class*=discussion]")) && lynx(x)
@@ -114,7 +115,7 @@ class OthersParser
     declared_in = (x = n.at("div[@class*='declaredIn']/code")) && x.inner_text
 
     data = {name: functionname,
-     type: 'function',
+     type: doc.at('h3[@class*=jump]')[:class].split(/\s+/)[-1],
      page: doc.at('title').inner_text,
      framework: @framework,
      declaration: declaration,
