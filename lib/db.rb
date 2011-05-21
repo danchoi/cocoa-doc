@@ -45,6 +45,7 @@ DB.create_table? :others do
   String :return_value
   Text :abstract
   Text :discussion
+  Text :special_considerations
   String :task_or_group
   String :availability
   Text :related_sample_code
