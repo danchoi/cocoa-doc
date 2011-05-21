@@ -40,6 +40,7 @@ class MethodFunctionParser
 
     data = {name: methodname,
      type: type,
+     page: page[:page],
      declaration: declaration,
      parameters: parameters,
      return_value: return_value,
