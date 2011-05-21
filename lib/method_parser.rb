@@ -31,24 +31,24 @@ class MethodFunctionParser
       end
     else
       nil
-    end.to_yaml
+    end
     return_value = (x = n.at("div[@class=return_value]/p")) && x.inner_text
     abstract = (x = n.at("p[@class=abstract]")) && x.inner_text
     availability = (x = n.at("div[@class='api availability']/ul/li")) && x.inner_text
-    seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}.to_yaml
+    seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}
     related_sample_code = (x = n.css('.relatedSampleCode li')) && x.map {|li| li.inner_text}.join(', ')
 
     data = {name: methodname,
      type: type,
      page: page[:page],
      declaration: declaration,
-     parameters: parameters,
+     parameters: to_yaml_or_nil(parameters),
      return_value: return_value,
      abstract: abstract,
      discussion: discussion,
      subgroup: taskmap[methodname],
      availability: availability,
-     see_also: seealso,
+     see_also: to_yaml_or_nil(seealso),
      related_sample_code: related_sample_code
     }
     begin
