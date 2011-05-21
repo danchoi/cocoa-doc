@@ -17,18 +17,19 @@ class OthersParser
 
   CONST_GROUP_CLASSES = ['abstract', 'declaration']
   def parse_constant_groups
-    groups = doc.xpath("//h3[@class='constantGroup']").map {|x|
+    doc.xpath("//h3[@class='constantGroup']").each {|x|
       elems = [x] + x.xpath("following-sibling::*").take_while {|e| CONST_GROUP_CLASSES.include?(e[:class])}
       fragment = Nokogiri::HTML(elems.map(&:to_html).join)
-
-      {
-        constant_group: x.inner_text,
+      data = {
+        name: x.inner_text,
+        type: 'constantGroup',
+        framework: @framework,
+        page: @page,
         abstract: (y = fragment.at("p.abstract")) && y.inner_text.strip,
         declaration: (y = fragment.at(".declaration")) && y.inner_text.strip
       }
+      DB[:others].insert data
     }
-    puts "CONSTANT GROUPS"
-    puts groups.to_yaml
 
   end
 
