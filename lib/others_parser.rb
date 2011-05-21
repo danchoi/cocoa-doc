@@ -33,12 +33,14 @@ class OthersParser
   def parse_constants
     constants = doc.xpath("//dt[code/@class='jump constantName']").map {|x|
       constant_name = x.inner_text
-      description = lynx(x.xpath("following-sibling::dd")[0])
+      description, availability, declared_in = *x.xpath("following-sibling::dd")[0].search('p').map(&:inner_text)
       constant_group = x.parent.xpath("preceding-sibling::h3[contains(@class, 'constantGroup')]").reverse[0]  || 
         x.parent.xpath("preceding-sibling::a[contains(@name, 'constant_group')]").reverse[0] 
 
       puts constant_name
       puts description
+      puts availability
+      puts declared_in
       puts constant_group
       puts '-' * 30
     }
