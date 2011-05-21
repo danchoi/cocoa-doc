@@ -15,7 +15,7 @@ DB.create_table? :api do
   String :return_value
   Text :abstract
   Text :discussion
-  String :group
+  String :subgroup
   String :availability
   Text :companion_guides
   Text :related_sample_code

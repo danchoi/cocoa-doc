@@ -46,7 +46,7 @@ class MethodFunctionParser
      return_value: return_value,
      abstract: abstract,
      discussion: discussion,
-     group: taskmap[methodname],
+     subgroup: taskmap[methodname],
      availability: availability,
      see_also: seealso,
      related_sample_code: related_sample_code
