@@ -1,5 +1,7 @@
 require 'sequel'
-DB = Sequel.connect 'sqlite://cocoa.db'
+require 'logger'
+
+DB = Sequel.connect 'sqlite://cocoa.db', :logger => Logger.new(STDOUT)
 DB.create_table? :api do 
   primary_key :id
   String :name
@@ -17,4 +19,5 @@ DB.create_table? :api do
   String :availability
   Text :companion_guides
   Text :related_sample_code
+  Text :see_also
 end

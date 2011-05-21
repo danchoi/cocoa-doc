@@ -1,8 +1,9 @@
 
 class MethodFunctionParser
-  attr_accessor :taskmap
+  attr_accessor :taskmap, :page
 
-  def initialize(taskmap)
+  def initialize(page, taskmap)
+    @page = page
     @taskmap = taskmap
   end
 
@@ -30,25 +31,31 @@ class MethodFunctionParser
       end
     else
       nil
-    end
+    end.to_yaml
     return_value = (x = n.at("div[@class=return_value]/p")) && x.inner_text
     abstract = (x = n.at("p[@class=abstract]")) && x.inner_text
     availability = (x = n.at("div[@class='api availability']/ul/li")) && x.inner_text
-    seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}
-    related_sample_code  = (x = n.css('.relatedSampleCode li').map {|li| li.inner_text}).empty? ? nil : x
+    seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}.to_yaml
+    related_sample_code = (x = n.css('.relatedSampleCode li')) && x.map {|li| li.inner_text}.join(', ')
 
-    {name: methodname,
+    data = {name: methodname,
      type: type,
      declaration: declaration,
      parameters: parameters,
      return_value: return_value,
      abstract: abstract,
      discussion: discussion,
-     taskgroup: taskmap[methodname],
+     group: taskmap[methodname],
      availability: availability,
-     seealso: seealso,
+     see_also: seealso,
      related_sample_code: related_sample_code
     }
+    begin
+      DB[:api].insert(data)
+    rescue
+      puts data.to_yaml
+      raise
+    end
   end
 
   FUNCTION_FIELDS = %w(

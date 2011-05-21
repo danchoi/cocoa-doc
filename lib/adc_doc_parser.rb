@@ -55,7 +55,7 @@ taskmap = tasks.inject({}) do |taskmap, taskgroup|
   taskmap
 end
 
-parser = MethodFunctionParser.new(taskmap)
+parser = MethodFunctionParser.new(r, taskmap)
 
 method_and_property_divs = doc.xpath("//div[@class='api classMethod']") + 
   doc.xpath("//div[@class='api instanceMethod']") + 
@@ -64,5 +64,4 @@ method_and_property_divs.map {|n| parser.parse(n)}
 
 function_headers = doc.xpath("//h3[@class='tight jump function']") 
 function_headers.map {|n| parser.parse_function(n)}
-
 
