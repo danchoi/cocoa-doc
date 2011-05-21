@@ -46,8 +46,22 @@ class OthersParser
     }
   end
 
+  DATATYPE_FIELDS = ['abstract', 'declaration', 'termdef', 'api discussion', 'api availability', 'api declaredIn']
   def parse_datatypes
+    structs = doc.xpath("//h3[@class='tight jump struct']")
+    type_defs = doc.xpath("//h3[@class='tight jump typeDef']")
+    (structs + type_defs).each {|n|
+      elems = [n] + n.xpath('following-sibling::*').take_while {|m| DATATYPE_FIELDS.include?(m[:class])}
 
+      frag = "<div class='blah datatype'>#{elems.map {|e| e.to_html}.join("\n")}</div>"
+      new_node = Nokogiri::HTML.parse(frag).at("div")
+      parse_datatype(new_node)
+    }
+  end
+
+  def parse_datatype(n)
+    puts '-' * 80
+    puts n
   end
 
   def parse_functions

@@ -105,3 +105,9 @@ CFStream - contains functions, datatypes and constants on the same page!
 
 api special considerations
 
+
+tight jump struct
+tight jump typeDef
+
+both are DataTypes
+
