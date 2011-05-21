@@ -27,7 +27,7 @@ class MethodFunctionParser
         definition = dt.xpath("following-sibling::dd").first#.inner_text
         #definition = definition.gsub(/\n */, "\n").gsub(/\n{3,}/, "\n\n")
         definition = lynx(definition)
-        {name: name, definition: definition.strip}
+        { name => definition.strip }
       end
     else
       nil
@@ -35,7 +35,7 @@ class MethodFunctionParser
     return_value = (x = n.at("div[@class=return_value]/p")) && x.inner_text
     abstract = (x = n.at("p[@class=abstract]")) && x.inner_text
     availability = (x = n.at("div[@class='api availability']/ul/li")) && x.inner_text
-    seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}
+    seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}.join(', ')
     related_sample_code = (x = n.css('.relatedSampleCode li')) && x.map {|li| li.inner_text}.join(', ')
 
     data = {name: methodname,
@@ -48,7 +48,7 @@ class MethodFunctionParser
      discussion: discussion,
      subgroup: taskmap[methodname],
      availability: availability,
-     see_also: to_yaml_or_nil(seealso),
+     see_also: seealso,
      related_sample_code: related_sample_code
     }
     begin
