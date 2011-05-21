@@ -49,6 +49,4 @@ DB.create_table? :functions do
   String :declared_in
 end
 
-DB.create_table? :constants do
-
-end
+#DB.create_table? :constants do end

@@ -15,8 +15,7 @@ class MethodFunctionParser
     parameters = if (x = n.at("div[@class='api parameters']"))
       x.search("dl/dt").map do |dt|
         name = dt.inner_text
-        definition = dt.xpath("following-sibling::dd").first#.inner_text
-        #definition = definition.gsub(/\n */, "\n").gsub(/\n{3,}/, "\n\n")
+        definition = dt.xpath("following-sibling::dd").first
         definition = lynx(definition)
         { name => definition.strip }
       end
@@ -44,7 +43,7 @@ class MethodFunctionParser
      return_value: return_value,
      abstract: abstract,
      discussion: discussion,
-     subgroup: taskmap[methodname_with_symbol],
+     task: taskmap[methodname_with_symbol],
      availability: availability,
      see_also: seealso,
      related_sample_code: related_sample_code
@@ -62,34 +61,5 @@ class MethodFunctionParser
     end
   end
 
-  FUNCTION_FIELDS = %w(
-    abstract
-    declaration
-    parameters
-    return_value
-    discussion
-    availability
-    seeAlso
-    relatedSampleCode
-    declaredIn
-  )
-
-  def parse_function(n) # n is the first h3 node in the function section
-    name = n.inner_text
-    elems = [n]
-    m = n.next_element
-    begin
-      while !m.nil? && FUNCTION_FIELDS.detect {|f| m[:class] =~ /#{f}/}
-        elems << m
-        m = m.next_element
-      end 
-    rescue
-      puts n.inner_html
-      raise
-    end
-    frag = "<div class='blah function'>#{elems.map {|e| e.to_html}.join("\n")}</div>"
-    new_node = Nokogiri::HTML.parse(frag).at("div")
-    parse(new_node)
-  end
 end
 
