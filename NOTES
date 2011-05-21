@@ -20,3 +20,61 @@ bin/parse < 4_2/Contents/Resources/Documents/documentation/UIKit/Reference/UIIma
 This HTML file parses correctly. It needs to be picked up by the script that 
 generates the list of documentation files to feed into the parser tool.
 
+
+Fields 
+
+cocoa_class
+superclasses (array)
+protocols
+framework
+availability (of class)
+companion_guides
+related_sample_code
+overview
+
+methods:
+name # could be instanceMethod classMethod property?
+type
+declaration
+parameters (array) # can be text
+return_value
+abstract
+discussion
+taskgroup <- could be typedef enum
+availability
+seealso
+related_sample_code
+
+Question: should I put constants and Classes in this same table?
+
+- then cocoa_class => name
+- superclasses could also encompass typedef or constants group
+- taskgroup could serve 
+- declared_in is also useful
+
+- reuse: decaration, availability, related_sample_code
+
+At what point does producing intermediate YAML make things more
+complicated than inserting directly into 
+
+Maybe I should make the parser a simple dispatch
+
+Change `cocoa_class` to `name` and use for class, method, property,
+functions, and constants
+
+It may be easier to test and scan the program by inserting records
+directly into the database. Use sequel.
+
+Maybe instead of putting this in all in a database, the database should
+just be an index to lines in a textfile, like ctags.
+
+Then I just have a make a set of text files for each page in the doc of
+functions, etc.
+
+seealso and related code can go into discussion
+
+
+
+
+
+

@@ -3,6 +3,7 @@ def tr_with_text(doc, s)
 end
 
 def mark_code(html)
+  return html
   html.gsub(/<\/?code>/, "|")
 end
 

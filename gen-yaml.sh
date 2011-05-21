@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This needs to be changed because some doc files aren't named Reference.html.
+# Some are named after their class. Functions and Constants are in files called
+# reference.html with an underscore.
+
 mkdir -p data
 find /Developer/Platforms/iPhoneOS.platform/Developer/Documentation/DocSets/com.apple.adc.documentation.AppleiOS4_2.iOSLibrary.docset -regex '.*/Reference.html'  |
 while read path
