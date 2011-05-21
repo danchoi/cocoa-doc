@@ -9,16 +9,7 @@ class MethodFunctionParser
 
   def parse(n)
     type = n[:class].split(' ')[-1] 
-    typeSymbol = case type
-                 when /instance/
-                   '- '
-                 when /class/
-                   '+ '
-                 else
-                   ''
-                 end
-                   
-    methodname = typeSymbol + n.at('h3[@class*=jump]').inner_text
+    methodname = n.at('h3[@class*=jump]').inner_text
     declaration = (x = n.at("*[@class*='declaration']")) && x.inner_text.strip
     discussion = (x = n.at("*[@class*=discussion]")) && lynx(x)
     parameters = if (x = n.at("div[@class='api parameters']"))
