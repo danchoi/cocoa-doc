@@ -111,3 +111,28 @@ tight jump typeDef
 
 both are DataTypes
 
+/home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `close': SQLite3::ConstraintException: columns framework, type, name are not unique (Sequel::DatabaseError)
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `ensure in prepare'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `prepare'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:134:in `execute'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:127:in `block (2 levels) in _execute'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/database/logging.rb:28:in `log_yield'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:127:in `block in _execute'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/connection_pool/threaded.rb:84:in `hold'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/database/connecting.rb:226:in `synchronize'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:117:in `_execute'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:103:in `execute_insert'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/dataset/actions.rb:557:in `execute_insert'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/dataset/actions.rb:281:in `insert'
+	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:101:in `parse_function'
+	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:92:in `block in parse_functions'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/nokogiri-1.4.4/lib/nokogiri/xml/node_set.rb:239:in `block in each'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/nokogiri-1.4.4/lib/nokogiri/xml/node_set.rb:238:in `upto'
+	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/nokogiri-1.4.4/lib/nokogiri/xml/node_set.rb:238:in `each'
+	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:92:in `map'
+	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:92:in `parse_functions'
+	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:12:in `parse'
+	from /home/choi/projects/cocoa/clcocoa/lib/adc_doc_parser.rb:20:in `<top (required)>'
+	from <internal:lib/rubygems/custom_require>:29:in `require'
+	from <internal:lib/rubygems/custom_require>:29:in `require'
+	from bin/parse:3:in `<main>'
