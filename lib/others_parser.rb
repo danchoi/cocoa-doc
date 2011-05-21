@@ -122,8 +122,10 @@ class OthersParser
     related_sample_code = (x = n.css('.relatedSampleCode li')) && x.map {|li| li.inner_text}.join(', ')
     declared_in = (x = n.at("div[@class*='declaredIn']/code")) && x.inner_text
 
+    puts n.to_html
+
     data = {name: functionname,
-     type: doc.at('h3[@class*=jump]')[:class].split(/\s+/)[-1],
+     type: n.at('h3[@class*=jump]')[:class].split(/\s+/)[-1],
      page: @page, 
      framework: @framework,
      declaration: declaration,
@@ -138,7 +140,11 @@ class OthersParser
      related_sample_code: related_sample_code,
      declared_in: declared_in
     }
+    puts data.inspect
+    puts '-' * 80
+    data
   end
+
 
   FUNCTION_FIELDS = %w(
     abstract

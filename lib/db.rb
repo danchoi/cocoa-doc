@@ -1,7 +1,8 @@
 require 'sequel'
 require 'logger'
 
-DB = Sequel.connect 'sqlite://cocoa.db', :logger => Logger.new(STDOUT)
+#DB = Sequel.connect 'sqlite://cocoa.db', :logger => Logger.new(STDOUT)
+DB = Sequel.connect 'sqlite://cocoa.db'
 
 # includes protocols
 DB.create_table? :classes_and_protocols do 
