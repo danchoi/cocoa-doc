@@ -9,7 +9,7 @@ class ClassParser
 
   def parse
     r = parse_page
-    DB[:classes].insert(r)
+    DB[:classes_and_protocols].insert(r)
 
     tasks = doc.xpath("//h3[@class='tasks']").map do |h|
       title = h.inner_text
@@ -28,7 +28,7 @@ class ClassParser
       end
       taskmap
     end
-    method_parser = MethodFunctionParser.new(r, taskmap)
+    method_parser = MethodParser.new(r, taskmap)
     method_and_property_divs = doc.xpath("//div[@class='api classMethod']") + 
       doc.xpath("//div[@class='api instanceMethod']") + 
       doc.xpath("//div[@class='api propertyObjC']")

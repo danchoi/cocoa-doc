@@ -4,7 +4,7 @@ require 'logger'
 DB = Sequel.connect 'sqlite://cocoa.db'#, :logger => Logger.new(STDOUT)
 
 # includes protocols
-DB.create_table? :classes do 
+DB.create_table? :classes_and_protocols do 
   String :name
   String :description
   String :superclasses
@@ -34,20 +34,21 @@ DB.create_table? :methods do
   String :declared_in
 end
 
-DB.create_table? :functions do 
+DB.create_table? :others do 
   primary_key :id
-  String :page
   String :name
+  String :type # function constant database
+  String :page
+  String :framework
   String :declaration
   String :parameters
   String :return_value
   Text :abstract
   Text :discussion
-  String :task
+  String :task_or_group
   String :availability
   Text :related_sample_code
   Text :see_also
   String :declared_in
 end
 
-#DB.create_table? :constants do end

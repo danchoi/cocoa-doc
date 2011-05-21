@@ -7,7 +7,7 @@ require 'db'
 require 'nokogiri'
 require 'common_methods'
 require 'class_parser'
-require 'functions_parser'
+require 'others_parser'
 
 html = STDIN.read
 html = Iconv.conv("US-ASCII//translit//ignore", "UTF-8", html)
@@ -16,6 +16,6 @@ doc = Nokogiri::HTML.parse html
 case doc.at('title').inner_text
 when /Class|Protocol/
   ClassParser.new(doc).parse
-when /Function/
-  FunctionsParser.new(doc).parse_functions
+else
+  OthersParser.new(doc).parse
 end

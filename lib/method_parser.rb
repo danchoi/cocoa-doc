@@ -1,5 +1,5 @@
 
-class MethodFunctionParser
+class MethodParser
   attr_accessor :taskmap, :page
 
   def initialize(page, taskmap)
@@ -36,6 +36,8 @@ class MethodFunctionParser
                          else
                            methodname
                          end
+    task = (x = taskmap[methodname_with_symbol]) && x[:taskgroup]
+    required = (x = taskmap[methodname_with_symbol]) && x[:required]
     data = {name: methodname,
      type: type,
      declaration: declaration,
@@ -43,8 +45,8 @@ class MethodFunctionParser
      return_value: return_value,
      abstract: abstract,
      discussion: discussion,
-     task: taskmap[methodname_with_symbol][:taskgroup],
-     required: taskmap[methodname_with_symbol][:required],
+     task: task,
+     required: required,
      availability: availability,
      see_also: seealso,
      related_sample_code: related_sample_code

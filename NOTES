@@ -96,6 +96,9 @@ TODO: flag required delegate methods
      * – numberOfSectionsInTableView:
      * – tableView:numberOfRowsInSection:  required method
      * – sectionIndexTitlesForTableView:
+DONE
 
+
+CFStream - contains functions, datatypes and constants on the same page!
 
 
