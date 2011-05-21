@@ -1,7 +1,7 @@
 require 'sequel'
 require 'logger'
 
-DB = Sequel.connect 'sqlite://cocoa.db'#, :logger => Logger.new(STDOUT)
+DB = Sequel.connect 'sqlite://cocoa.db', :logger => Logger.new(STDOUT)
 
 # includes protocols
 DB.create_table? :classes_and_protocols do 
@@ -14,6 +14,7 @@ DB.create_table? :classes_and_protocols do
   String :availability
   Text :companion_guides
   Text :related_sample_code
+  index [:framework, :name], :unique => true
 end
 
 DB.create_table? :methods do 
@@ -32,6 +33,7 @@ DB.create_table? :methods do
   Text :related_sample_code
   Text :see_also
   String :declared_in
+  index [:class_or_protocol, :name], :unique => true
 end
 
 DB.create_table? :others do 
@@ -51,5 +53,6 @@ DB.create_table? :others do
   Text :related_sample_code
   Text :see_also
   String :declared_in
+  index [:framework, :type, :name], :unique => true
 end
 
