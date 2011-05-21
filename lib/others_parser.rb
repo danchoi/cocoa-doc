@@ -5,6 +5,7 @@ class OthersParser
   def initialize(doc)
     @doc = doc
     @framework = (x = tr_with_text(doc, 'Framework')) && x.at('td/div').inner_text.strip
+    @page = doc.at('title').inner_text
   end
 
   def parse
@@ -37,13 +38,19 @@ class OthersParser
       description, availability, declared_in = *x.xpath("following-sibling::dd")[0].search('p').map(&:inner_text)
       constant_group = x.parent.xpath("preceding-sibling::h3[contains(@class, 'constantGroup')]").reverse[0]  || 
         x.parent.xpath("preceding-sibling::a[contains(@name, 'constant_group')]").reverse[0] 
+      constant_group = constant_group ? constant_group.inner_text : nil
 
-      puts constant_name
-      puts description
-      puts availability
-      puts declared_in
-      puts constant_group
-      puts '-' * 30
+      data = {
+        name: constant_name,
+        type: 'constantName',
+        framework: @framework,
+        page: @page,
+        abstract: description,
+        availability: availability,
+        declared_in: declared_in,
+        task_or_group: constant_group
+      }
+      DB[:others].insert data
     }
   end
 
@@ -116,7 +123,7 @@ class OthersParser
 
     data = {name: functionname,
      type: doc.at('h3[@class*=jump]')[:class].split(/\s+/)[-1],
-     page: doc.at('title').inner_text,
+     page: @page, 
      framework: @framework,
      declaration: declaration,
      parameters: to_yaml_or_nil(parameters),
