@@ -29,6 +29,14 @@ class MethodFunctionParser
     seealso = (x = n.at("div[@class$=seeAlso]")) && x.search("li").map(&:inner_text).map {|z| ascii(z).strip}.join(', ')
     related_sample_code = (x = n.css('.relatedSampleCode li')) && x.map {|li| li.inner_text}.join(', ')
 
+    methodname_with_symbol = case type
+                         when 'classMethod'
+                           "+ #{methodname}"
+                         when 'instanceMethod'
+                           "- #{methodname}"
+                         else
+                           methodname
+                         end
     data = {name: methodname,
      type: type,
      page: page[:page],
@@ -37,7 +45,7 @@ class MethodFunctionParser
      return_value: return_value,
      abstract: abstract,
      discussion: discussion,
-     subgroup: taskmap[methodname],
+     subgroup: taskmap[methodname_with_symbol],
      availability: availability,
      see_also: seealso,
      related_sample_code: related_sample_code
@@ -77,7 +85,7 @@ class MethodFunctionParser
     end
     frag = "<div class='blah function'>#{elems.map {|e| e.to_html}.join("\n")}</div>"
     new_node = Nokogiri::HTML.parse(frag).at("div")
-    parse_method(new_node, taskmap)
+    parse(new_node)
   end
 end
 

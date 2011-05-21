@@ -37,7 +37,6 @@ r[:discussion] = overview
 r[:companion_guides] = companion_guides
 r[:related_sample_code] = related_sample_code
 
-puts r.inspect
 DB[:api].insert(r)
 
 tasks = doc.xpath("//h3[@class='tasks']").map do |h|
@@ -48,12 +47,13 @@ tasks = doc.xpath("//h3[@class='tasks']").map do |h|
 end
 
 taskmap = tasks.inject({}) do |taskmap, taskgroup|
-  title = taskgroup[:title]
+  group_title = taskgroup[:title]
   taskgroup[:tasks].each do |task|
-    taskmap[task] = title
+    taskmap[task] = group_title
   end
   taskmap
 end
+
 
 parser = MethodFunctionParser.new(r, taskmap)
 
