@@ -24,6 +24,7 @@ DB.create_table? :methods do
   String :declaration
   String :parameters
   String :return_value
+  Boolean :required
   Text :abstract
   Text :discussion
   String :task

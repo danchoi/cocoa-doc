@@ -76,5 +76,26 @@ seealso and related code can go into discussion
 
 
 
+This is also a path to be aware of
+
+4_2/Contents/Resources/Documents/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html
+
+
+
+bin/parse < 4_2/Contents/Resources/Documents/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html
+
+
+Should deal with datatypes and constants in the same table.
+
+
+TODO: flag required delegate methods
+
+  Configuring a Table View
+
+     * – tableView:cellForRowAtIndexPath:  required method
+     * – numberOfSectionsInTableView:
+     * – tableView:numberOfRowsInSection:  required method
+     * – sectionIndexTitlesForTableView:
+
 
 

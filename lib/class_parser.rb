@@ -14,14 +14,17 @@ class ClassParser
     tasks = doc.xpath("//h3[@class='tasks']").map do |h|
       title = h.inner_text
       ul = h.xpath("following-sibling::ul")[0]
-      mytasks = ul.search("li").map {|a| ascii(a.at("a").inner_text)}
+      mytasks = ul.search("li").map {|a| 
+        { name: ascii(a.at("a").inner_text),
+          required: !!((x = a.at("span")) && x.inner_text =~ /required method/) }
+      }
       {title: title, tasks: mytasks}
     end
 
     taskmap = tasks.inject({}) do |taskmap, taskgroup|
       group_title = taskgroup[:title]
       taskgroup[:tasks].each do |task|
-        taskmap[task] = group_title
+        taskmap[task[:name]] = {:taskgroup => taskgroup[:title], :required => task[:required]}
       end
       taskmap
     end
