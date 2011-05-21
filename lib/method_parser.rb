@@ -39,7 +39,6 @@ class MethodFunctionParser
                          end
     data = {name: methodname,
      type: type,
-     page: page[:page],
      declaration: declaration,
      parameters: to_yaml_or_nil(parameters),
      return_value: return_value,
@@ -50,8 +49,13 @@ class MethodFunctionParser
      see_also: seealso,
      related_sample_code: related_sample_code
     }
+  end
+
+  def parse_method(n)
+    data = parse(n).merge(:class_or_protocol => page[:name])
+    data
     begin
-      DB[:api].insert(data)
+      DB[:methods].insert(data)
     rescue
       puts data.to_yaml
       raise

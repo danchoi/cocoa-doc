@@ -37,7 +37,7 @@ r[:discussion] = overview
 r[:companion_guides] = companion_guides
 r[:related_sample_code] = related_sample_code
 
-DB[:api].insert(r)
+DB[:classes].insert(r)
 
 tasks = doc.xpath("//h3[@class='tasks']").map do |h|
   title = h.inner_text
@@ -54,14 +54,14 @@ taskmap = tasks.inject({}) do |taskmap, taskgroup|
   taskmap
 end
 
-
 parser = MethodFunctionParser.new(r, taskmap)
 
 method_and_property_divs = doc.xpath("//div[@class='api classMethod']") + 
   doc.xpath("//div[@class='api instanceMethod']") + 
   doc.xpath("//div[@class='api propertyObjC']")
-method_and_property_divs.map {|n| parser.parse(n)}
+method_and_property_divs.map {|n| parser.parse_method(n)}
 
 function_headers = doc.xpath("//h3[@class='tight jump function']") 
 function_headers.map {|n| parser.parse_function(n)}
+
 
