@@ -1,0 +1,3 @@
+#!/bin/bash
+bin/doctidy < $1 | less
+
