@@ -33,7 +33,10 @@ def lynx(s)
     pipe.puts s
     pipe.close_write
     pipe.read
-  end.gsub(/^file:\/\/.*$/, '').strip_leading_whitespace.strip
+  end.gsub(/^file:\/\/.*$/, '').
+    strip_leading_whitespace.
+    sub(/^Discussion\s*$/, '').
+    strip
 end
 
 def to_yaml_or_nil(x)

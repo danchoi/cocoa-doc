@@ -1,8 +1,7 @@
 require 'yaml'
 require 'iconv'
 require 'db'
-# Builds the database of Cocoa methods.
-# STDIN input should a Reference.html.
+# Builds the database of Cocoa methods, functions, etc.
 
 require 'nokogiri'
 require 'common_methods'
