@@ -98,13 +98,9 @@ TODO: flag required delegate methods
      * – sectionIndexTitlesForTableView:
 DONE
 
-
 CFStream - contains functions, datatypes and constants on the same page!
 
-
-
 api special considerations
-
 
 tight jump struct
 tight jump typeDef
@@ -112,27 +108,38 @@ tight jump typeDef
 both are DataTypes
 
 /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `close': SQLite3::ConstraintException: columns framework, type, name are not unique (Sequel::DatabaseError)
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `ensure in prepare'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `prepare'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:134:in `execute'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:127:in `block (2 levels) in _execute'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/database/logging.rb:28:in `log_yield'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:127:in `block in _execute'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/connection_pool/threaded.rb:84:in `hold'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/database/connecting.rb:226:in `synchronize'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:117:in `_execute'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/adapters/sqlite.rb:103:in `execute_insert'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/dataset/actions.rb:557:in `execute_insert'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sequel-3.23.0/lib/sequel/dataset/actions.rb:281:in `insert'
-	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:101:in `parse_function'
-	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:92:in `block in parse_functions'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/nokogiri-1.4.4/lib/nokogiri/xml/node_set.rb:239:in `block in each'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/nokogiri-1.4.4/lib/nokogiri/xml/node_set.rb:238:in `upto'
-	from /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/nokogiri-1.4.4/lib/nokogiri/xml/node_set.rb:238:in `each'
-	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:92:in `map'
-	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:92:in `parse_functions'
-	from /home/choi/projects/cocoa/clcocoa/lib/others_parser.rb:12:in `parse'
-	from /home/choi/projects/cocoa/clcocoa/lib/adc_doc_parser.rb:20:in `<top (required)>'
-	from <internal:lib/rubygems/custom_require>:29:in `require'
-	from <internal:lib/rubygems/custom_require>:29:in `require'
-	from bin/parse:3:in `<main>'
+
+------------------------------------------------------------------------
+Sun May 22 10:07:54 EDT 2011
+
+I may not even need to use Ruby to display the results. Just a shell
+script wrapper around sqlite3 used as a command line tool?
+
+vim -t {tag} may be useful.
+
+The file to edit and the initial cursor position depends on a "tag".
+{tag} is looked up in the tags file, the associated file becomes the
+current file and the associated command is executed. {tag} could be a
+function name. See :help tag-commands.
+
+ex starts vim in ex mode. Go to normal mode with :vi.
+
+view is like less.
+
+VMAIL: use the -f flag: Foreground. This option should be used when Vim
+is executed by a program that will wait for the edit session to finish
+(e.g. mail).
+
+From vim help:
+
+  With the ":tag" command the cursor will be positioned on the tag.
+  With the CTRL-] command, the keyword on which the cursor is standing
+  is used as the tag.  If the cursor is not on a keyword, the first
+  keyword to the right of the cursor is used.
+
+  The ":tag" command works very well for C programs.  If you see a call
+  to a function and wonder what that function does, position the cursor
+  inside of the function name and hit CTRL-].  This will bring you to
+  the function definition.  An easy way back is with the CTRL-T command.
+  Also read about the tag stack below.
+
