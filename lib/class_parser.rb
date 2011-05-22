@@ -3,12 +3,14 @@ require 'method_parser'
 class ClassParser
 
   attr :doc
-  def initialize(doc)
+  def initialize(doc, file=nil)
     @doc = doc
+    @file = file
   end
 
   def parse
     r = parse_page
+    r[:file] = @file
     DB[:classes_and_protocols].insert(r)
 
     tasks = doc.xpath("//h3[@class='tasks']").map do |h|
@@ -28,7 +30,7 @@ class ClassParser
       end
       taskmap
     end
-    method_parser = MethodParser.new(r, taskmap)
+    method_parser = MethodParser.new(r, taskmap, @file)
     method_and_property_divs = doc.xpath("//div[@class='api classMethod']") + 
       doc.xpath("//div[@class='api instanceMethod']") + 
       doc.xpath("//div[@class='api propertyObjC']")
