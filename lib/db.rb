@@ -34,7 +34,7 @@ DB.create_table? :methods do
   Text :related_sample_code
   Text :see_also
   String :declared_in
-  index [:class_or_protocol, :name], :unique => true
+  index [:class_or_protocol, :type, :name], :unique => true
 end
 
 DB.create_table? :others do 

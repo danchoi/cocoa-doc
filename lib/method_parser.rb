@@ -60,9 +60,9 @@ class MethodParser
       DB[:methods].insert(data)
     rescue Sequel::DatabaseError
       puts $!
-      puts "Tried to insert:"
-      puts data.inspect
-      raise
+      puts "Tried to insert: %s %s %s" % [ data[:class_or_protocol],
+        data[:type],
+        data[:name] ]
     end
   end
 
