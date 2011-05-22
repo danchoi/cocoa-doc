@@ -77,7 +77,11 @@ class OthersParser
     tasks = doc.xpath("//h3[@class='tasks']").map do |h|
       title = h.inner_text
       ul = h.xpath("following-sibling::ul")[0]
-      mytasks = ul.search("li").map {|a| ascii(a.at("a").inner_text)}
+      mytasks = ul.search("li").select {|li|
+        li.at("a")
+      }.map {|li| 
+        ascii(li.at("a").inner_text)
+      }
       {title: title, tasks: mytasks}
     end
 
