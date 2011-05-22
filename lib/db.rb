@@ -54,6 +54,6 @@ DB.create_table? :others do
   Text :related_sample_code
   Text :see_also
   String :declared_in
-  index [:framework, :type, :name], :unique => true
+  index [:page, :type, :name], :unique => true
 end
 
