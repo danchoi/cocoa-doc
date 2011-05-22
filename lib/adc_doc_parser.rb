@@ -13,13 +13,10 @@ html = ARGV.first ? File.read(ARGV.first) : STDIN.read
 html = Iconv.conv("US-ASCII//translit//ignore", "UTF-8", html)
 doc = Nokogiri::HTML.parse html
 
-begin
-  case doc.at('title').inner_text
-  when /Class|Protocol/
-    ClassParser.new(doc).parse
-  else
-    OthersParser.new(doc).parse
-  end
-rescue Sequel::DatabaseError, SQLite3::ConstraintException
-  puts $!
+case doc.at('title').inner_text
+when /Class|Protocol/
+  ClassParser.new(doc).parse
+else
+  OthersParser.new(doc).parse
 end
+

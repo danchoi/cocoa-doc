@@ -58,8 +58,10 @@ class MethodParser
     data
     begin
       DB[:methods].insert(data)
-    rescue
-      puts data.to_yaml
+    rescue Sequel::DatabaseError
+      puts $!
+      puts "Tried to insert:"
+      puts data.inspect
       raise
     end
   end

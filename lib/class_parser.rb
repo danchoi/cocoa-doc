@@ -42,7 +42,7 @@ class ClassParser
     r = {} # result
     r[:name] = doc.at('a')[:title]
     #r[:page] = doc.at('title').inner_text
-    r[:description] = doc.at("meta[@id=description]")[:content]
+    r[:description] = (x = doc.at("meta[@id=description]")) && x[:content]
     r[:superclasses] = (x = tr_with_text(doc, 'Inherits from')) && x.search('td/div/a').map(&:inner_text).join(', ')
     r[:protocols] = (x = tr_with_text(doc, 'Conforms to')) && x.search('td/div/span/a').map(&:inner_text).join(', ')
     r[:framework] = (x = tr_with_text(doc, 'Framework')) && x.at('td/div').inner_text.strip

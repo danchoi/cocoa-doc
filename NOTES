@@ -143,3 +143,29 @@ From vim help:
   the function definition.  An easy way back is with the CTRL-T command.
   Also read about the tag stack below.
 
+
+Add a field to hold URL to source file so user can open directly.
+
+4_2/Contents/Resources/Documents/documentation/DeveloperTools/Reference/XcodeUserDefaultRef/100-Xcode_User_Defaults/UserDefaultRef.html
+
+does not contain standard documentation.
+
+avoid:
+
+*book.html
+RevisionHistory.html
+index.html
+
+Can also skip paths with "Guide" in it.
+e.g.
+4_2/Contents/Resources/Documents/documentation/ContactData/Conceptual/AddressBookProgrammingGuideforiPhone
+
+Successfully stuck a lot of data into the sqlite3 database.
+Size of generated database: 8.8M
+
+Issues:
+- unique index violations. Try again, and keep a log.
+
+Truncate lead part of path:
+4_2/Contents/Resources/Documents/documentation/
+
