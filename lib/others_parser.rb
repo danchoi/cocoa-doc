@@ -28,7 +28,15 @@ class OthersParser
         abstract: (y = fragment.at("p.abstract")) && y.inner_text.strip,
         declaration: (y = fragment.at(".declaration")) && y.inner_text.strip
       }
-      DB[:others].insert data
+      begin
+        DB[:others].insert data
+      rescue Sequel::DatabaseError
+        puts $!
+        puts "Tried to insert: %s %s %s" % [ data[:framework],
+          data[:type],
+          data[:name] ]
+      end
+
     }
 
   end
