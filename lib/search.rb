@@ -2,7 +2,7 @@ require 'sequel'
 db = Sequel.connect 'sqlite://cocoa.db'
 
 #db[:classes_and_protocols].each {|x| puts x[:name] }
-db[:methods].each {|x| puts "%s %s" % [x[:class_or_protocol], x[:name]] }
+db[:methods].each {|x| puts "%.20s %.30s %s" % [x[:class_or_protocol], x[:name], x[:file]] }
 exit
 
 puts db[:methods].count
