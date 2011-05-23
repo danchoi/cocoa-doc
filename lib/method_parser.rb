@@ -2,10 +2,9 @@
 class MethodParser
   attr_accessor :taskmap, :page
 
-  def initialize(page, taskmap, file)
+  def initialize(page, taskmap)
     @page = page
     @taskmap = taskmap
-    @file = file
   end
 
   def parse(n)
@@ -50,8 +49,7 @@ class MethodParser
      required: required,
      availability: availability,
      see_also: seealso,
-     related_sample_code: related_sample_code,
-     file: @file
+     related_sample_code: related_sample_code
     }
   end
 

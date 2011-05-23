@@ -9,15 +9,14 @@ require 'common_methods'
 require 'class_parser'
 require 'others_parser'
 
-file = ARGV.first
-html = File.read file
+html = ARGV.first ? File.read(ARGV.first) : STDIN.read
 html = Iconv.conv("US-ASCII//translit//ignore", "UTF-8", html)
 doc = Nokogiri::HTML.parse html
 
 case doc.at('title').inner_text
 when /Class|Protocol/
-  ClassParser.new(doc, file).parse
+  ClassParser.new(doc).parse
 else
-  OthersParser.new(doc, file).parse
+  OthersParser.new(doc).parse
 end
 

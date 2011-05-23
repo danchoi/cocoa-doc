@@ -15,7 +15,6 @@ DB.create_table? :classes_and_protocols do
   String :availability
   Text :companion_guides
   Text :related_sample_code
-  String :file
   index [:framework, :name], :unique => true
 end
 
@@ -35,7 +34,6 @@ DB.create_table? :methods do
   Text :related_sample_code
   Text :see_also
   String :declared_in
-  String :file
   index [:class_or_protocol, :type, :name], :unique => true
 end
 
@@ -56,7 +54,6 @@ DB.create_table? :others do
   Text :related_sample_code
   Text :see_also
   String :declared_in
-  String :file
   index [:page, :type, :name], :unique => true
 end
 

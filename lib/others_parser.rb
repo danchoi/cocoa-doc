@@ -2,11 +2,10 @@
 class OthersParser
   attr_accessor :taskmap, :doc
 
-  def initialize(doc, file)
+  def initialize(doc)
     @doc = doc
     @framework = (x = tr_with_text(doc, 'Framework')) && x.at('td/div').inner_text.strip
     @page = doc.at('title').inner_text
-    @file = file
   end
 
   def parse
@@ -27,8 +26,7 @@ class OthersParser
         framework: @framework,
         page: @page,
         abstract: (y = fragment.at("p.abstract")) && y.inner_text.strip,
-        declaration: (y = fragment.at(".declaration")) && y.inner_text.strip,
-        file: @file
+        declaration: (y = fragment.at(".declaration")) && y.inner_text.strip
       }
       begin
         DB[:others].insert data
@@ -59,8 +57,7 @@ class OthersParser
         abstract: description,
         availability: availability,
         declared_in: declared_in,
-        task_or_group: constant_group,
-        file: @file
+        task_or_group: constant_group
       }
       DB[:others].insert data
     }
@@ -151,8 +148,7 @@ class OthersParser
      availability: availability,
      see_also: seealso,
      related_sample_code: related_sample_code,
-     declared_in: declared_in,
-     file: @file
+     declared_in: declared_in
     }
     data
   end
