@@ -9,6 +9,8 @@ class ClassParser
 
   def parse
     r = parse_page
+
+    # TODO rescue the unique key constraint violation (NSObject)
     DB[:classes_and_protocols].insert(r)
 
     tasks = doc.xpath("//h3[@class='tasks']").map do |h|

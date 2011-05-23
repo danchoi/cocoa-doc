@@ -172,3 +172,6 @@ Truncate lead part of path:
 
 4_2/Contents/Resources/Documents/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class
 4_2/Contents/Resources/Documents/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/NSArray.html
+
+/home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `close': SQLite3::ConstraintException: columns framework, name are not unique (Sequel::DatabaseError)
+
