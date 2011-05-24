@@ -175,3 +175,7 @@ Truncate lead part of path:
 
 /home/choi/.rvm/gems/ruby-1.9.2-p180/gems/sqlite3-1.3.3/lib/sqlite3/database.rb:97:in `close': SQLite3::ConstraintException: columns framework, name are not unique (Sequel::DatabaseError)
 
+
+I think I should merge all the stuff into one table.
+
+
